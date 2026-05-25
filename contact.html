@@ -143,29 +143,20 @@
   </footer>
 
   <!-- Genesys Cloud Predictive Engagement Tracking Snippet -->
-  <script>
-    var GC_ORG_ID   = 'YOUR_ORG_ID_HERE';
-    var GC_REGION   = 'YOUR_REGION_HERE';
-
-    (function (g, e, n, es, ys) {
-      g['_genesysJs'] = e;
-      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
-      g[e].t = 1 * new Date();
-      g[e].c = es;
-      ys = document.createElement('script');
-      ys.async = 1;
-      ys.src = 'https://apps.' + GC_REGION + '.pure.cloud/genesys-bootstrap/genesys.min.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(ys, s);
-    })(window, 'Genesys', '', { environment: GC_REGION + '.pure.cloud', deploymentId: GC_ORG_ID });
-
-    // Standard pageview
-    Genesys('command', 'Journey.record', {
-      eventName: 'pageview',
-      pageTitle: document.title,
-      pageUrl: window.location.href
-    });
-  </script>
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.com.au/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod-apse2',
+    deploymentId: 'f4d04a12-97bb-47ac-ae3f-03de4db229d9'
+  });
+</script>
 
   <!-- Form Submission + Identity Stitching -->
   <script>
