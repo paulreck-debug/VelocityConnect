@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velocity Connect — Contact Us</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 18L14 8L20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Velocity Connect
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="premium.html">Premium Plan</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="padding: 48px 24px;">
+    <h1>Get in touch</h1>
+    <p>Request a callback and one of our team will call you back to discuss the best plan for your needs.</p>
+  </section>
+
+  <!-- Auth Simulation Banner -->
+  <div class="section" style="padding-bottom: 0;">
+    <div class="auth-banner" id="auth-banner">
+      <span><strong>Demo:</strong> Simulate an authenticated user to test identity stitching</span>
+      <button class="btn btn-blue" style="padding: 8px 16px; font-size: 13px;" onclick="simulateLogin()">
+        Simulate Login
+      </button>
+    </div>
+  </div>
+
+  <!-- Contact Form + Sidebar -->
+  <div class="section">
+    <div class="contact-section">
+
+      <!-- Form -->
+      <div>
+        <form id="callback-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="e.g. Sarah">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="e.g. Johnson">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="e.g. sarah@example.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required placeholder="e.g. 0412 345 678">
+          </div>
+          <div class="form-group">
+            <label for="interest">I'm interested in</label>
+            <select id="interest" name="interest">
+              <option value="general">General enquiry</option>
+              <option value="basic">Basic Plan ($59/mo)</option>
+              <option value="pro">Pro Plan ($89/mo)</option>
+              <option value="premium">Premium Plan ($129/mo)</option>
+              <option value="business">Business solutions</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Anything else we should know?</label>
+            <textarea id="message" name="message" rows="3" placeholder="Optional — tell us about your situation"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Request Callback</button>
+        </form>
+
+        <!-- Success Message -->
+        <div class="form-success" id="form-success">
+          <h3>Callback Requested!</h3>
+          <p>Thanks! One of our team will call you shortly.</p>
+          <p style="font-size: 13px; margin-top: 8px; color: var(--color-text-light);">
+            (In the demo, this is where you'd now call the DID from the phone number you entered.)
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="info-sidebar">
+        <h3>Other ways to reach us</h3>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <h4>Call us</h4>
+            <p>1800 VEL CONNECT (1800 835 266)</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <h4>Email</h4>
+            <p>support@velocityconnect.com.au</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h4>Support Hours</h4>
+            <p>Mon&ndash;Fri: 8am &ndash; 8pm ACST<br>Sat&ndash;Sun: 9am &ndash; 5pm ACST</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; background: var(--color-primary-light); border-radius: var(--radius);">
+          <h4 style="font-size: 14px; margin-bottom: 6px;">Why request a callback?</h4>
+          <p style="font-size: 13px; color: var(--color-text-light);">
+            When you submit this form, we'll know exactly which pages you've been looking at on our website.
+            That means when we call you back, we can jump straight to helping you with what you're interested in
+            &mdash; no need to explain everything from scratch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Velocity Connect Pty Ltd &mdash; Demo Site for Genesys Cloud Journey Management POC</p>
+    <p style="margin-top: 8px; font-size: 12px; opacity: 0.6;">This is a fictional company. No real services are offered.</p>
+  </footer>
+
+  <!-- Genesys Cloud Predictive Engagement Tracking Snippet -->
+  <script>
+    var GC_ORG_ID   = 'YOUR_ORG_ID_HERE';
+    var GC_REGION   = 'YOUR_REGION_HERE';
+
+    (function (g, e, n, es, ys) {
+      g['_genesysJs'] = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = 1 * new Date();
+      g[e].c = es;
+      ys = document.createElement('script');
+      ys.async = 1;
+      ys.src = 'https://apps.' + GC_REGION + '.pure.cloud/genesys-bootstrap/genesys.min.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ys, s);
+    })(window, 'Genesys', '', { environment: GC_REGION + '.pure.cloud', deploymentId: GC_ORG_ID });
+
+    // Standard pageview
+    Genesys('command', 'Journey.record', {
+      eventName: 'pageview',
+      pageTitle: document.title,
+      pageUrl: window.location.href
+    });
+  </script>
+
+  <!-- Form Submission + Identity Stitching -->
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+      var firstName = document.getElementById('firstName').value.trim();
+      var lastName  = document.getElementById('lastName').value.trim();
+      var email     = document.getElementById('email').value.trim();
+      var phone     = document.getElementById('phone').value.trim();
+      var interest  = document.getElementById('interest').value;
+
+      // --- PE Form Tracking: Submit event ---
+      // This fires a form_submitted event and passes identity data
+      // PE uses this to create/update an External Contact and stitch
+      // the anonymous journey session to a known identity.
+      Genesys('command', 'Journey.record', {
+        eventName: 'form_submitted',
+        formId: 'callback-form',
+        pageTitle: document.title,
+        pageUrl: window.location.href
+      });
+
+      // --- PE Identity: Pass customer details ---
+      // These become attributes on the External Contact record.
+      // The phone number is critical for ANI matching on inbound calls.
+      Genesys('command', 'Journey.setCustomerIdentity', {
+        phone: phone,
+        email: email,
+        firstName: firstName,
+        lastName: lastName
+      });
+
+      // --- PE Custom Event: Capture the plan interest ---
+      Genesys('command', 'Journey.record', {
+        eventName: 'callbackRequested',
+        pageTitle: document.title,
+        pageUrl: window.location.href
+      });
+
+      // Show success message, hide form
+      document.getElementById('callback-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('visible');
+
+      // Update debug banner
+      var debugEl = document.getElementById('pe-debug-form');
+      if (debugEl) {
+        debugEl.innerHTML = '<strong>PE Debug:</strong> Form submitted! Identity sent to PE &mdash; ' +
+          'Phone: ' + phone + ' | Email: ' + email + ' | Name: ' + firstName + ' ' + lastName +
+          ' | Interest: ' + interest;
+        debugEl.style.borderColor = '#059669';
+        debugEl.style.background = '#ecfdf5';
+        debugEl.style.color = '#059669';
+      }
+    }
+
+    // --- Authenticated User Simulation ---
+    // This simulates what would happen if the customer logged in to their
+    // account on the website. Instead of relying on form submission for
+    // identity, we pass the customer ID directly.
+    function simulateLogin() {
+      var demoCustomerId = 'CUST-' + Math.floor(Math.random() * 90000 + 10000);
+
+      // Pass authenticated identity to PE
+      Genesys('command', 'Journey.setCustomerIdentity', {
+        customerId: demoCustomerId,
+        email: 'demo.customer@example.com',
+        firstName: 'Demo',
+        lastName: 'Customer'
+      });
+
+      // Update the auth banner
+      var banner = document.getElementById('auth-banner');
+      banner.className = 'auth-banner logged-in';
+      banner.innerHTML = '<span><strong>Logged in as:</strong> Demo Customer (' + demoCustomerId + ') &mdash; Identity sent to PE</span>' +
+        '<span style="color: var(--color-success); font-weight: 600;">Authenticated</span>';
+    }
+  </script>
+
+  <div class="pe-debug" id="pe-debug-form">
+    <strong>PE Debug:</strong> Page tracked &mdash; Contact Us
+    &nbsp;|&nbsp; Form tracking ready (submit form to fire identity event)
+  </div>
+
+</body>
+</html>

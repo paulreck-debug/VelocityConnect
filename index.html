@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velocity Connect — Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 18L14 8L20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Velocity Connect
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="premium.html">Premium Plan</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Internet that keeps up with you</h1>
+    <p>Blazing-fast fibre broadband, mobile plans, and home bundles from Australia's most flexible provider.</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="products.html" class="btn btn-primary">View Our Plans</a>
+      <a href="contact.html" class="btn btn-outline">Request a Callback</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <div class="section">
+    <h2 class="section-title">Why choose Velocity Connect?</h2>
+    <p class="section-subtitle">We make staying connected simple, fast, and affordable.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Lightning Fast</h3>
+        <p>Speeds up to 1 Gbps on our fibre network. Stream, game, and work from home without breaking a sweat.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>No Lock-in Contracts</h3>
+        <p>Month-to-month flexibility on every plan. Stay because you want to, not because you have to.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <h3>Award-Winning Support</h3>
+        <p>Australian-based support team available 7 days a week. Real people, real help, every time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="section-alt">
+    <div class="section" style="text-align: center;">
+      <h2 class="section-title">Ready to switch?</h2>
+      <p class="section-subtitle">Check out our plans and find the perfect fit, or request a callback and we'll walk you through your options.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="products.html" class="btn btn-blue">Compare Plans</a>
+        <a href="contact.html" class="btn btn-primary">Request a Callback</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Velocity Connect Pty Ltd &mdash; Demo Site for Genesys Cloud Journey Management POC</p>
+    <p style="margin-top: 8px; font-size: 12px; opacity: 0.6;">This is a fictional company. No real services are offered.</p>
+  </footer>
+
+  <!-- ============================================
+       Genesys Cloud Predictive Engagement
+       Tracking Snippet
+       ============================================ -->
+  <script>
+    // --- CONFIGURATION: Replace these with your Genesys Cloud values ---
+    var GC_ORG_ID   = 'YOUR_ORG_ID_HERE';
+    var GC_REGION   = 'YOUR_REGION_HERE';  // e.g. 'use1', 'aps1', 'euw1', etc.
+    // ------------------------------------------------------------------
+
+    (function (g, e, n, es, ys) {
+      g['_genesysJs'] = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = 1 * new Date();
+      g[e].c = es;
+      ys = document.createElement('script');
+      ys.async = 1;
+      ys.src = 'https://apps.' + GC_REGION + '.pure.cloud/genesys-bootstrap/genesys.min.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ys, s);
+    })(window, 'Genesys', '', { environment: GC_REGION + '.pure.cloud', deploymentId: GC_ORG_ID });
+
+    // Track this pageview
+    Genesys('command', 'Journey.record', {
+      eventName: 'pageview',
+      pageTitle: document.title,
+      pageUrl: window.location.href
+    });
+  </script>
+
+  <!-- PE Debug Banner (visible during development — remove for final demo) -->
+  <div class="pe-debug" id="pe-debug">
+    <strong>PE Debug:</strong> Page tracked &mdash; <span id="pe-page-info">Home</span>
+    &nbsp;|&nbsp; Org: <span id="pe-org">&mdash;</span>
+    &nbsp;|&nbsp; Region: <span id="pe-region">&mdash;</span>
+  </div>
+  <script>
+    document.getElementById('pe-org').textContent = GC_ORG_ID === 'YOUR_ORG_ID_HERE' ? 'NOT SET' : GC_ORG_ID;
+    document.getElementById('pe-region').textContent = GC_REGION === 'YOUR_REGION_HERE' ? 'NOT SET' : GC_REGION;
+  </script>
+
+</body>
+</html>

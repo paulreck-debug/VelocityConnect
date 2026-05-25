@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velocity Connect — Premium Plan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 18L14 8L20 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Velocity Connect
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="premium.html" class="active">Premium Plan</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Plan Header -->
+  <div class="section plan-detail">
+    <div class="plan-header">
+      <h1>Premium Plan</h1>
+      <p style="opacity: 0.85; margin-bottom: 16px;">Our fastest, most feature-packed internet plan</p>
+      <div class="price">$129<span class="price-period"> /month</span></div>
+    </div>
+
+    <!-- Feature Grid -->
+    <h2 style="font-size: 24px; margin-bottom: 24px; text-align: center;">Everything you get with Premium</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <div class="icon">&#9889;</div>
+        <div>
+          <h4>1 Gbps Evening Speed</h4>
+          <p>Typical evening speed of 1000 Mbps. Download a 4K movie in under 30 seconds.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#127760;</div>
+        <div>
+          <h4>Unlimited Data</h4>
+          <p>No caps, no throttling, no surprises on your bill. Use as much as you need.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128225;</div>
+        <div>
+          <h4>Wi-Fi 6E Mesh System</h4>
+          <p>Whole-home coverage with the latest mesh technology. Covers homes up to 400m&sup2;.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128222;</div>
+        <div>
+          <h4>Priority 24/7 Support</h4>
+          <p>Skip the queue. Premium customers get direct access to our senior support team.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128274;</div>
+        <div>
+          <h4>Free Static IP</h4>
+          <p>Included at no extra cost. Perfect for remote access, VPNs, and home servers.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128246;</div>
+        <div>
+          <h4>4G Backup Connection</h4>
+          <p>If your fibre goes down, your connection automatically fails over to 4G. Stay online always.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Box -->
+    <div class="cta-box">
+      <h3>Interested in the Premium Plan?</h3>
+      <p>Talk to one of our specialists. We'll help you get set up and answer any questions.</p>
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="contact.html" class="btn btn-primary">Request a Callback</a>
+        <a href="products.html" class="btn btn-blue">Compare All Plans</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Velocity Connect Pty Ltd &mdash; Demo Site for Genesys Cloud Journey Management POC</p>
+    <p style="margin-top: 8px; font-size: 12px; opacity: 0.6;">This is a fictional company. No real services are offered.</p>
+  </footer>
+
+  <!-- Genesys Cloud Predictive Engagement Tracking Snippet -->
+  <script>
+    var GC_ORG_ID   = 'YOUR_ORG_ID_HERE';
+    var GC_REGION   = 'YOUR_REGION_HERE';
+
+    (function (g, e, n, es, ys) {
+      g['_genesysJs'] = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = 1 * new Date();
+      g[e].c = es;
+      ys = document.createElement('script');
+      ys.async = 1;
+      ys.src = 'https://apps.' + GC_REGION + '.pure.cloud/genesys-bootstrap/genesys.min.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ys, s);
+    })(window, 'Genesys', '', { environment: GC_REGION + '.pure.cloud', deploymentId: GC_ORG_ID });
+
+    // Standard pageview
+    Genesys('command', 'Journey.record', {
+      eventName: 'pageview',
+      pageTitle: document.title,
+      pageUrl: window.location.href
+    });
+
+    // Custom event: Visitor viewed the Premium Plan detail page
+    // This is the KEY event we want the agent to see during the demo
+    Genesys('command', 'Journey.record', {
+      eventName: 'viewedPremiumPlan',
+      pageTitle: 'Premium Plan',
+      pageUrl: window.location.href
+    });
+  </script>
+
+  <div class="pe-debug">
+    <strong>PE Debug:</strong> Page tracked &mdash; Premium Plan
+    &nbsp;|&nbsp; <strong style="color: #059669;">Custom event fired: viewedPremiumPlan</strong>
+  </div>
+
+</body>
+</html>
