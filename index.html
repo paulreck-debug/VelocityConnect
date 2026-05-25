@@ -104,15 +104,9 @@
 </script>
 
   <!-- PE Debug Banner (visible during development — remove for final demo) -->
-  <div class="pe-debug" id="pe-debug">
-    <strong>PE Debug:</strong> Page tracked &mdash; <span id="pe-page-info">Home</span>
-    &nbsp;|&nbsp; Org: <span id="pe-org">&mdash;</span>
-    &nbsp;|&nbsp; Region: <span id="pe-region">&mdash;</span>
+  <div class="pe-debug">
+    <strong>PE Debug:</strong> Page tracked &mdash; Home
   </div>
-  <script>
-    document.getElementById('pe-org').textContent = GC_ORG_ID === 'YOUR_ORG_ID_HERE' ? 'NOT SET' : GC_ORG_ID;
-    document.getElementById('pe-region').textContent = GC_REGION === 'YOUR_REGION_HERE' ? 'NOT SET' : GC_REGION;
-  </script>
 
 </body>
 </html>
