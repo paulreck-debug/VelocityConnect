@@ -113,6 +113,14 @@
     environment: 'prod-apse2',
     deploymentId: 'f4d04a12-97bb-47ac-ae3f-03de4db229d9'
   });
+
+  // Fire custom PE event when visitor views the Premium Plan page.
+  // This can be used in PE Segments/Outcomes to identify high-intent visitors.
+  Genesys('subscribe', 'Journey.ready', function () {
+    Genesys('command', 'Journey.record', {
+      eventName: 'viewedPremiumPlan'
+    });
+  });
 </script>
 
   <div class="pe-debug">

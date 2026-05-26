@@ -158,8 +158,37 @@
   });
 </script>
 
-  <!-- Form Submission + Identity Stitching -->
+  <!-- PE Form Tracking + Identity Stitching -->
   <script>
+    // -------------------------------------------------------
+    // 1. Declarative Form Tracking via Journey.formsTrack
+    //    This tells PE to automatically capture form field values
+    //    on submit (and optionally on abandon). The traitsMapper
+    //    maps form field "name" attributes to PE trait names,
+    //    which PE uses to create/update External Contact records.
+    //    Phone mapping is critical for ANI matching on inbound calls.
+    // -------------------------------------------------------
+    Genesys('subscribe', 'Journey.ready', function () {
+      Genesys('command', 'Journey.formsTrack', {
+        selector: '#callback-form',
+        formName: 'Callback Request',
+        captureFormDataOnAbandon: true,
+        captureFormDataOnSubmit: true,
+        traitsMapper: [
+          { fieldName: 'firstName', traitName: 'givenName' },
+          { fieldName: 'lastName',  traitName: 'familyName' },
+          { fieldName: 'email',     traitName: 'email' },
+          { fieldName: 'phone',     traitName: 'cellPhone' }
+        ]
+      });
+    });
+
+    // -------------------------------------------------------
+    // 2. Form Submit Handler (UI only)
+    //    PE handles the data capture via formsTrack above.
+    //    This function just manages the page UI: hide the form,
+    //    show the success message, update the debug banner.
+    // -------------------------------------------------------
     function handleFormSubmit(e) {
       e.preventDefault();
 
@@ -169,34 +198,6 @@
       var phone     = document.getElementById('phone').value.trim();
       var interest  = document.getElementById('interest').value;
 
-      // --- PE Form Tracking: Submit event ---
-      // This fires a form_submitted event and passes identity data
-      // PE uses this to create/update an External Contact and stitch
-      // the anonymous journey session to a known identity.
-      Genesys('command', 'Journey.record', {
-        eventName: 'form_submitted',
-        formId: 'callback-form',
-        pageTitle: document.title,
-        pageUrl: window.location.href
-      });
-
-      // --- PE Identity: Pass customer details ---
-      // These become attributes on the External Contact record.
-      // The phone number is critical for ANI matching on inbound calls.
-      Genesys('command', 'Journey.setCustomerIdentity', {
-        phone: phone,
-        email: email,
-        firstName: firstName,
-        lastName: lastName
-      });
-
-      // --- PE Custom Event: Capture the plan interest ---
-      Genesys('command', 'Journey.record', {
-        eventName: 'callbackRequested',
-        pageTitle: document.title,
-        pageUrl: window.location.href
-      });
-
       // Show success message, hide form
       document.getElementById('callback-form').style.display = 'none';
       document.getElementById('form-success').classList.add('visible');
@@ -204,8 +205,8 @@
       // Update debug banner
       var debugEl = document.getElementById('pe-debug-form');
       if (debugEl) {
-        debugEl.innerHTML = '<strong>PE Debug:</strong> Form submitted! Identity sent to PE &mdash; ' +
-          'Phone: ' + phone + ' | Email: ' + email + ' | Name: ' + firstName + ' ' + lastName +
+        debugEl.innerHTML = '<strong>PE Debug:</strong> Form submitted! Identity sent to PE via formsTrack &mdash; ' +
+          'Phone: ' + phone + ' (cellPhone) | Email: ' + email + ' | Name: ' + firstName + ' ' + lastName +
           ' | Interest: ' + interest;
         debugEl.style.borderColor = '#059669';
         debugEl.style.background = '#ecfdf5';
@@ -213,26 +214,36 @@
       }
     }
 
-    // --- Authenticated User Simulation ---
-    // This simulates what would happen if the customer logged in to their
-    // account on the website. Instead of relying on form submission for
-    // identity, we pass the customer ID directly.
+    // -------------------------------------------------------
+    // 3. Authenticated User Simulation
+    //    Uses Journey.record to fire a custom event with identity
+    //    attributes, and traitsMapper to map them to PE traits.
+    //    This simulates a logged-in user whose identity is known
+    //    without a form submission.
+    // -------------------------------------------------------
     function simulateLogin() {
       var demoCustomerId = 'CUST-' + Math.floor(Math.random() * 90000 + 10000);
 
-      // Pass authenticated identity to PE
-      Genesys('command', 'Journey.setCustomerIdentity', {
-        customerId: demoCustomerId,
-        email: 'demo.customer@example.com',
-        firstName: 'Demo',
-        lastName: 'Customer'
+      Genesys('command', 'Journey.record', {
+        eventName: 'authenticated_login',
+        customAttributes: {
+          customerId: demoCustomerId,
+          email: 'demo.customer@example.com',
+          firstName: 'Demo',
+          lastName: 'Customer'
+        },
+        traitsMapper: [
+          { fieldName: 'email',     traitName: 'email' },
+          { fieldName: 'firstName', traitName: 'givenName' },
+          { fieldName: 'lastName',  traitName: 'familyName' }
+        ]
       });
 
       // Update the auth banner
       var banner = document.getElementById('auth-banner');
       banner.className = 'auth-banner logged-in';
-      banner.innerHTML = '<span><strong>Logged in as:</strong> Demo Customer (' + demoCustomerId + ') &mdash; Identity sent to PE</span>' +
-        '<span style="color: var(--color-success); font-weight: 600;">Authenticated</span>';
+      banner.innerHTML = '<span><strong>Logged in as:</strong> Demo Customer (' + demoCustomerId + ') &mdash; Identity sent to PE via Journey.record</span>' +
+        '<span style="color: var(--color-success); font-weight: 600;">&#10003; Authenticated</span>';
     }
   </script>
 
