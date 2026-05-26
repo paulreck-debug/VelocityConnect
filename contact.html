@@ -184,11 +184,17 @@
     });
 
     // -------------------------------------------------------
-    // 2. Form Submit Handler (UI only)
-    //    PE handles the data capture via formsTrack above.
-    //    This function just manages the page UI: hide the form,
-    //    show the success message, update the debug banner.
+    // 2. Form Submit Handler
+    //    PE handles journey data capture via formsTrack above.
+    //    This function ALSO creates an External Contact via
+    //    the Cloudflare Worker proxy, which calls the GC API.
+    //    The External Contact is what enables ANI matching
+    //    when the customer calls the contact centre.
     // -------------------------------------------------------
+
+    // IMPORTANT: Update this URL after deploying your Cloudflare Worker
+    var WORKER_URL = 'https://gc-external-contact-creator.paul-reck.workers.dev';
+
     function handleFormSubmit(e) {
       e.preventDefault();
 
@@ -198,20 +204,71 @@
       var phone     = document.getElementById('phone').value.trim();
       var interest  = document.getElementById('interest').value;
 
-      // Show success message, hide form
-      document.getElementById('callback-form').style.display = 'none';
-      document.getElementById('form-success').classList.add('visible');
+      var submitBtn = document.querySelector('#callback-form button[type="submit"]');
+      var debugEl   = document.getElementById('pe-debug-form');
 
-      // Update debug banner
-      var debugEl = document.getElementById('pe-debug-form');
+      // Disable button while processing
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating contact...';
+
+      // Update debug banner to show in-progress
       if (debugEl) {
-        debugEl.innerHTML = '<strong>PE Debug:</strong> Form submitted! Identity sent to PE via formsTrack &mdash; ' +
-          'Phone: ' + phone + ' (cellPhone) | Email: ' + email + ' | Name: ' + firstName + ' ' + lastName +
-          ' | Interest: ' + interest;
-        debugEl.style.borderColor = '#059669';
-        debugEl.style.background = '#ecfdf5';
-        debugEl.style.color = '#059669';
+        debugEl.innerHTML = '<strong>PE Debug:</strong> Form submitted &mdash; creating External Contact via Worker proxy...';
+        debugEl.style.borderColor = '#2563eb';
+        debugEl.style.background = '#eff6ff';
+        debugEl.style.color = '#2563eb';
       }
+
+      // POST to Cloudflare Worker to create the External Contact
+      fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone
+        })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        // Show success message, hide form
+        document.getElementById('callback-form').style.display = 'none';
+        document.getElementById('form-success').classList.add('visible');
+
+        if (data.success) {
+          if (debugEl) {
+            debugEl.innerHTML = '<strong>PE Debug:</strong> External Contact CREATED (ID: ' + data.contactId + ') &mdash; ' +
+              'Phone: ' + phone + ' (cellPhone) | Email: ' + email + ' | Name: ' + firstName + ' ' + lastName +
+              ' | Interest: ' + interest + ' | PE formsTrack also fired';
+            debugEl.style.borderColor = '#059669';
+            debugEl.style.background = '#ecfdf5';
+            debugEl.style.color = '#059669';
+          }
+        } else {
+          if (debugEl) {
+            debugEl.innerHTML = '<strong>PE Debug:</strong> External Contact creation failed: ' + (data.error || 'Unknown error') +
+              ' &mdash; PE formsTrack still captured traits';
+            debugEl.style.borderColor = '#dc2626';
+            debugEl.style.background = '#fef2f2';
+            debugEl.style.color = '#dc2626';
+          }
+        }
+      })
+      .catch(function(err) {
+        // Still show success to the "customer" — the callback request is valid
+        // even if the EC creation failed. Debug banner shows the error.
+        document.getElementById('callback-form').style.display = 'none';
+        document.getElementById('form-success').classList.add('visible');
+
+        if (debugEl) {
+          debugEl.innerHTML = '<strong>PE Debug:</strong> Worker proxy error: ' + err.message +
+            ' &mdash; PE formsTrack still captured traits. Check Worker URL and deployment.';
+          debugEl.style.borderColor = '#dc2626';
+          debugEl.style.background = '#fef2f2';
+          debugEl.style.color = '#dc2626';
+        }
+      });
     }
 
     // -------------------------------------------------------
